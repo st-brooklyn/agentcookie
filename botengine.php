@@ -18,7 +18,8 @@ while(!feof($myfile)) {
 }
 fclose($myfile);
 
-print_r($botwords);
+print_r($botwords) . "<br />";
+echo $botwords["tour"] . "<br />";
 
 function getReply($message = "") {
   $response = $message . " ";
@@ -32,9 +33,8 @@ function getReply($message = "") {
   return $response;
 }
 
-echo getReply("tour");
+echo getReply("tour") . "<br />";
 
-print_r(array_keys($botwords));
-echo "<br />";
-print_r(array_values($botwords));
+print_r(array_keys($botwords))."<br />";
+print_r(array_values($botwords))."<br />";
 ?>
