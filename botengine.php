@@ -25,7 +25,7 @@ fclose($myfile);
 function getReply($message) {
   $response = $message . " ";
   echo $message."<br />";
-  echo array_key_exists($message, $botwords)."<br />"; 
+  echo "The result is ".array_key_exists($message, $botwords)."<br />"; 
   reset($botwords);
   if (array_key_exists(strtolower($message), $botwords) == 1) {
     $response .= $botwords[$message];
