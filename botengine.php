@@ -20,7 +20,7 @@ fclose($myfile);
 
 function getReply($message = "") {
   $response = $message . " ";
-  if (isset($message, array_keys($botwords))) {
+  if (array_key_exists($message, $botwords)) {
     $response .= $botwords[$message];
   }
   else {
