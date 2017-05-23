@@ -12,7 +12,7 @@ while(!feof($myfile)) {
   $line = fgets($myfile);
   // Add each line into response dictionary
   $entry = explode($delim, $line);
-  $botwords[$entry[0]] => $entry[1];
+  $botwords[$entry[0]] = $entry[1];
   // Output one line until end-of-file
   //echo $line . "<br>";
 }
