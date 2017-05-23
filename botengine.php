@@ -18,6 +18,8 @@ while(!feof($myfile)) {
 }
 fclose($myfile);
 
+print_r($botwords);
+
 function getReply($message = "") {
   $response = $message . " ";
   if (array_key_exists($message, $botwords)) {
