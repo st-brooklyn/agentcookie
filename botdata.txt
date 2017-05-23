@@ -1,0 +1,2 @@
+hello|#|Hello there, how are you?
+tour|#|We will open soon. Stay tuned.
