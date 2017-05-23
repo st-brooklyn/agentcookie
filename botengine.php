@@ -12,16 +12,16 @@ while(!feof($myfile)) {
   $line = fgets($myfile);
   // Add each line into response dictionary
   $entry = explode($delim, $line);
-  $botwords[$entry[0]] = $entry[1];
+  $botwords[$entry[0]] => $entry[1];
   // Output one line until end-of-file
   //echo $line . "<br>";
 }
 fclose($myfile);
 
-print_r($botwords) . "<br />";
-echo $botwords["tour"] . "<br />";
+print_r($botwords)."<br />";
+echo $botwords["tour"]."<br />";
 
-function getReply($message = "") {
+function getReply($message) {
   $response = $message . " ";
   if (array_key_exists($message, $botwords)) {
     $response .= $botwords[$message];
