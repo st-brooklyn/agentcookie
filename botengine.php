@@ -23,6 +23,7 @@ echo array_key_exists("tour", $botwords);
 
 function getReply($message) {
   $response = $message . " ";
+  echo $message.<br />;
   echo array_key_exists($message, $botwords)."<br />"; 
   if (array_key_exists($message, $botwords)) {
     $response .= $botwords[$message];
