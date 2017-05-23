@@ -19,7 +19,7 @@ while(!feof($myfile)) {
 fclose($myfile);
 
 function getReply($message = "") {
-  if (array_key_exists($message, $botwords)) {
+  if (isset($message, $botwords)) {
     return $botwords[$message];
   }
   else {
