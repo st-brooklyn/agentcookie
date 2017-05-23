@@ -26,7 +26,7 @@ function getReply($message) {
   $response = $message . " ";
   echo $message."<br />";
   echo array_key_exists($message, $botwords)."<br />"; 
-  if (!!array_key_exists($message, $botwords)) {
+  if (array_key_exists($message, $botwords) == 1) {
     $response .= $botwords[$message];
   }
   else {
