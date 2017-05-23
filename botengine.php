@@ -1,5 +1,8 @@
 <?php
 $myfile = fopen("botdata.txt", "r") or die("Unable to open file!");
-echo fread($myfile,filesize("botdata.txt"));
+// Output one line until end-of-file
+while(!feof($myfile)) {
+  echo fgets($myfile) . "<br>";
+}
 fclose($myfile);
 ?>
