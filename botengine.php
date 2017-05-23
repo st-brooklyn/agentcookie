@@ -24,10 +24,10 @@ fclose($myfile);
 
 function getReply($message) {
   $response = $message . " ";
-  //print $message."<br />";
-  //print array_key_exists($message, $botwords)."<br />"; 
+  echo $message."<br />";
+  echo array_key_exists($message, $botwords)."<br />"; 
   reset($botwords);
-  if (array_key_exists($message, $botwords) == 1) {
+  if (array_key_exists(strtolower($message), $botwords) == 1) {
     $response .= $botwords[$message];
   }
   else {
