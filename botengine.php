@@ -19,10 +19,11 @@ while(!feof($myfile)) {
 fclose($myfile);
 
 print_r($botwords)."<br />";
-echo $botwords["tour"]."<br />";
+echo array_key_exists("tour", $botwords);
 
 function getReply($message) {
   $response = $message . " ";
+  echo array_key_exists($message, $botwords)."<br />"; 
   if (array_key_exists($message, $botwords)) {
     $response .= $botwords[$message];
   }
