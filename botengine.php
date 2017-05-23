@@ -14,7 +14,7 @@ while(!feof($myfile)) {
   $entry = explode($delim, $line);
   $botwords[$entry[0]] = $entry[1];
   // Output one line until end-of-file
-  echo $line . "<br>";
+  //echo $line . "<br>";
 }
 fclose($myfile);
 
