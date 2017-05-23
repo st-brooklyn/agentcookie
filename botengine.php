@@ -20,8 +20,8 @@ fclose($myfile);
 
 function getReply($message = "") {
   $response = $message . " ";
-  if (isset($message, $botwords)) {
-    $response .= $botwords[$message];
+  if (isset($message, array_keys($botwords))) {
+    $response .= array_values($botwords[$message]);
   }
   else {
     $response .= "I will get back to you ASAP.";
