@@ -32,6 +32,7 @@ function getReply($message = "") {
 
 echo getReply("tour");
 
-//print_r(array_keys($botwords));
-//print_r(array_values($botwords));
+print_r(array_keys($botwords));
+echo "<br />";
+print_r(array_values($botwords));
 ?>
