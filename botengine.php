@@ -1,6 +1,6 @@
 <?php
 $botfile = "botdata.txt";
-$delim = '|#|';
+$delim = "|#|";
 
 // Open a botdata.txt file
 $myfile = fopen($botfile, "r") or die("Unable to open file!");
@@ -18,16 +18,16 @@ while(!feof($myfile)) {
 }
 fclose($myfile);
 
-function getReply($message = '') {
+function getReply($message = "") {
   if (array_key_exists($message, $botwords)) {
     return $botwords[$message];
   }
   else {
-    return "I will get back to you ASAP.';
+    return "I will get back to you ASAP.";
   }
 }
 
-echo getReply('tour');
+echo getReply("tour");
 
 //print_r(array_keys($botwords));
 //print_r(array_values($botwords));
