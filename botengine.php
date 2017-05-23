@@ -19,12 +19,15 @@ while(!feof($myfile)) {
 fclose($myfile);
 
 function getReply($message = "") {
+  $response = $message . " ";
   if (isset($message, $botwords)) {
-    return $botwords[$message];
+    $response .= $botwords[$message];
   }
   else {
-    return "I will get back to you ASAP.";
+    $response .= "I will get back to you ASAP.";
   }
+  
+  return $response;
 }
 
 echo getReply("tour");
