@@ -18,12 +18,13 @@ while(!feof($myfile)) {
 }
 fclose($myfile);
 
-print_r($botwords)."<br />";
-echo array_key_exists("tour", $botwords);
+print_r($botwords)
+echo "<br />";
+echo array_key_exists("tour", $botwords)."<br />";
 
 function getReply($message) {
   $response = $message . " ";
-  echo $message.<br />;
+  echo $message."<br />";
   echo array_key_exists($message, $botwords)."<br />"; 
   if (array_key_exists($message, $botwords)) {
     $response .= $botwords[$message];
