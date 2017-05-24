@@ -35,6 +35,8 @@ reset($botkeys);
 function getReply($message) {
   $response = $message . " ";
   $index = 0;
+  echo strlen($message);
+  echo strlen($botkeys[1]);
   var_dump($message);
   echo "<br />"; 
   var_dump(array_key_exists($message, $botwords));
