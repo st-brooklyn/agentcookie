@@ -26,6 +26,9 @@ fclose($myfile);
 //echo "<br />";
 //echo array_key_exists("tour", $botwords)."<br />";
 
+reset($botwords);
+reset($botkeys);
+
 function getReply($message) {
   $response = $message . " ";
   $index = 0;
