@@ -22,7 +22,7 @@ while(!feof($myfile)) {
 }
 fclose($myfile);
 
-//print_r($botwords);
+print_r($botwords);
 //echo "<br />";
 //echo array_key_exists("tour", $botwords)."<br />";
 
