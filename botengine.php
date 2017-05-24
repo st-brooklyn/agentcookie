@@ -36,12 +36,14 @@ function getReply($message) {
   $response = $message . " ";
   $index = 0; 
   
+  var_dump($botwords);
+  
   reset($botwords);
   reset($botkeys);
   reset($botvalues);
   
   foreach($botwords as $word) {
-    echo $word;
+    var_dump($word);
   }
   
   
