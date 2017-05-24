@@ -1,3 +1,4 @@
 hello|#|Hello there, how are you?
 tour|#|We will open soon. Stay tuned.
 สวัสดีครับ|#|สวัสดีครับ ยินดีต้อนรับครับ
+อยากไปญี่ปุ่น|#|ทำงานเก็บเงินเยอะ ๆ สิ
