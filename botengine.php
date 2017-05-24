@@ -34,7 +34,7 @@ function getReply($message) {
   var_dump(array_key_exists($message, $botwords));
   reset($botwords);
   
-  if(in_array($message, $botkeys){
+  if(in_array($message, $botkeys)){
     $index = array_search($message, $botkeys);
     $response .= $botvalues[$index];
   }
