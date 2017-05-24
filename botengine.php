@@ -1,11 +1,13 @@
 <?php
-$botfile = "botdata.txt";
+$botfilepath = "botdata.txt";
 $delim = "|#|";
 
 // Open a botdata.txt file
-$myfile = fopen($botfile, "r") or die("Unable to open file!");
+$myfile = fopen($botfilepath, "r") or die("Unable to open file!");
 
 $botwords = array();
+$botkeys = array();
+$botvalues = array();
 $line = "";
 
 while(!feof($myfile)) {
@@ -13,6 +15,8 @@ while(!feof($myfile)) {
   // Add each line into response dictionary
   $entry = explode($delim, $line);
   $botwords[$entry[0]] = $entry[1];
+  $botkeys[] = $entry[0];
+  $botvalues[] = $entry[1];
   // Output one line until end-of-file
   //echo $line . "<br>";
 }
@@ -24,11 +28,17 @@ fclose($myfile);
 
 function getReply($message) {
   $response = $message . " ";
+  $index = 0;
   var_dump($message);
   echo "<br />"; 
   var_dump(array_key_exists($message, $botwords));
   reset($botwords);
-  if (array_key_exists(strtolower($message), $botwords) == 1) {
+  
+  if(in_array($message, $botkeys){
+    $index = array_search($message, $botkeys);
+    $response .= $botvalues[$index];
+  }
+  elseif (array_key_exists(strtolower($message), $botwords) == 1) {
     $response .= $botwords[$message];
   }
   else {
