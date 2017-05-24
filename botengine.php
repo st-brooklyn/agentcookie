@@ -5,7 +5,7 @@ $delim = "|#|";
 // Open a botdata.txt file
 $myfile = fopen($botfilepath, "r") or die("Unable to open file!");
 
-$botwords = array();
+global $botwords = array();
 $botkeys = array();
 $botvalues = array();
 $line = "";
@@ -22,7 +22,7 @@ while(!feof($myfile)) {
 }
 fclose($myfile);
 
-print_r($botwords);
+//print_r($botwords);
 //echo "<br />";
 //echo array_key_exists("tour", $botwords)."<br />";
 
