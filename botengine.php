@@ -32,7 +32,9 @@ function getReply($message) {
   var_dump($message);
   echo "<br />"; 
   var_dump(array_key_exists($message, $botwords));
+  var_dump(in_array($message, $botkeys));
   reset($botwords);
+  reset($botkeys);
   
   if(in_array($message, $botkeys)){
     $index = array_search($message, $botkeys);
