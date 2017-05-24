@@ -26,6 +26,9 @@ fclose($myfile);
 //echo "<br />";
 //echo array_key_exists("tour", $botwords)."<br />";
 
+print_r($botkeys);
+print_r($botvalues);
+
 reset($botwords);
 reset($botkeys);
 
