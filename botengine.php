@@ -14,8 +14,8 @@ while(!feof($myfile)) {
   $line = fgets($myfile);
   // Add each line into response dictionary
   $entry = explode($delim, $line);
-  $botwords[trim(strtolower($entry[0]))] = $entry[1];
-  $botkeys[] = trim(strtolower($entry[0]));
+  $botwords[$entry[0]] = $entry[1];
+  $botkeys[] = $entry[0];
   $botvalues[] = $entry[1];
   // Output one line until end-of-file
   //echo $line . "<br>";
@@ -26,23 +26,25 @@ fclose($myfile);
 //echo "<br />";
 //echo array_key_exists("tour", $botwords)."<br />";
 
-print_r($botkeys);
-print_r($botvalues);
+//print_r($botkeys);
+//print_r($botvalues);
 
-reset($botwords);
-reset($botkeys);
+//reset($botwords);
+//reset($botkeys);
 
 function getReply($message) {
   $response = $message . " ";
   $index = 0;
+  
+  reset($botwords);
+  reset($botkeys);
+  reset($botvalues);
   echo gettype($message);
-  echo gettype($botkeys[1]);
+  echo gettype($botkeys[1]); // tour
   var_dump($message);
   echo "<br />"; 
   var_dump(array_key_exists($message, $botwords));
   var_dump(in_array($message, $botkeys));
-  reset($botwords);
-  reset($botkeys);
   
   if(in_array($message, $botkeys)){
     $index = array_search($message, $botkeys);
