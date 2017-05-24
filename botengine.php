@@ -5,7 +5,8 @@ $delim = "|#|";
 // Open a botdata.txt file
 $myfile = fopen($botfilepath, "r") or die("Unable to open file!");
 
-global $botwords = array();
+global $botwords;
+$botwords = array();
 $botkeys = array();
 $botvalues = array();
 $line = "";
