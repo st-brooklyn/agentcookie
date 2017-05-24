@@ -36,6 +36,7 @@ function getReply($message) {
   $response = $message . " ";
   $index = 0; 
   
+  print_r($botwords);
   var_dump($botwords);
   
   reset($botwords);
