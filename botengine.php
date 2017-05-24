@@ -5,7 +5,6 @@ $delim = "|#|";
 // Open a botdata.txt file
 $myfile = fopen($botfilepath, "r") or die("Unable to open file!");
 
-global $botwords;
 $botwords = array();
 $botkeys = array();
 $botvalues = array();
@@ -34,6 +33,7 @@ fclose($myfile);
 //reset($botkeys);
 
 function getReply($message) {
+  global $botwords;
   $response = $message . " ";
   $index = 0; 
   
@@ -47,7 +47,6 @@ function getReply($message) {
   foreach($botwords as $word) {
     var_dump($word);
   }
-  
   
   echo gettype($message);
   echo gettype($botkeys[1]); // tour
