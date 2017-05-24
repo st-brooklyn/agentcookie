@@ -34,11 +34,17 @@ fclose($myfile);
 
 function getReply($message) {
   $response = $message . " ";
-  $index = 0;
+  $index = 0; 
   
   reset($botwords);
   reset($botkeys);
   reset($botvalues);
+  
+  foreach($botwords as $word) {
+    echo $word;
+  }
+  
+  
   echo gettype($message);
   echo gettype($botkeys[1]); // tour
   var_dump($message);
