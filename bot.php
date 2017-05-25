@@ -70,7 +70,7 @@ if (!is_null($events['events'])) {
 
 			//echo $result . "\r\n";
 			
-			echo sendMessage(global $replyToken, global $messages, global $accessToken);
+			echo sendMessage(global $replyToken, global $messages, global $access_token);
 		}
 	}
 }
