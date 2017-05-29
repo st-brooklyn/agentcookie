@@ -1,6 +1,14 @@
 <?php
 require "botengine.php";
 
+function logvar($object){
+	ob_start();
+	var_dump($object);
+	$logmsg = ob_get_contents();
+	ob_end_clean();
+	error_log($content, 3, "bot.log");
+}
+
 function sendMessage($replyToken,  $messages, $accessToken) {
 	
 	// Make a POST Request to Messaging API to reply to sender
@@ -29,8 +37,8 @@ $access_token = 'dIZf/b/ZabUO0IafFmPxBvcG9xPKQXtGZ6wClV70CCqTwV1TJDT1m58rdm3pko0
 
 // Get POST body content
 $content = file_get_contents('php://input');
+logvar($content);
 
-error_log(print($content)."/r/n", 3, "bot.log");
 // Parse JSON
 $events = json_decode($content, true);
 // Validate parsed JSON data
@@ -77,3 +85,4 @@ if (!is_null($events['events'])) {
 	}
 }
 echo "OK";
+?>
