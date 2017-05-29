@@ -1,12 +1,14 @@
 <?php
 require "botengine.php";
+$logFileName = "bot.log";
 
 function logvar($object){
+	global $logFileName;
 	ob_start();
 	var_dump($object);
 	$logmsg = ob_get_contents();
 	ob_end_clean();
-	error_log($content, 3, "bot.log", "");
+	logToFile($logmsg, $logFileName);
 }
 
 function sendMessage($replyToken,  $messages, $accessToken) {
@@ -33,11 +35,15 @@ function sendMessage($replyToken,  $messages, $accessToken) {
 	return $result . "\r\n";
 }
 
+
 $access_token = 'dIZf/b/ZabUO0IafFmPxBvcG9xPKQXtGZ6wClV70CCqTwV1TJDT1m58rdm3pko08nIimFRk5wmcElbc7mF9ZXkntG7goq5NDifdSJBkGLyReznHswZuhR77uOYc9ryJIVAfhouccWFwtKMIMucBXpQdB04t89/1O/w1cDnyilFU=';
 
 // Get POST body content
 $content = file_get_contents('php://input');
-error_log(gettype($content), 3, "bot.log", "");
+
+//logToFile(gettype($content), $logFileName);
+
+//error_log(gettype($content), 3, "bot.log", "");
 logvar($content);
 
 // Parse JSON
