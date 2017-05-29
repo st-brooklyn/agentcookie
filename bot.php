@@ -2,6 +2,8 @@
 require "botengine.php";
 $logFileName = "bot.log";
 
+file_put_contents("bot.log", "test\r\n");
+
 function logvar($object){
 	global $logFileName;
 	ob_start();
@@ -44,7 +46,7 @@ $content = file_get_contents('php://input');
 //logToFile(gettype($content), $logFileName);
 
 //error_log(gettype($content), 3, "bot.log", "");
-logvar($content);
+//logvar($content);
 
 // Parse JSON
 $events = json_decode($content, true);
