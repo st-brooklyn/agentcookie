@@ -2,6 +2,8 @@
 $botfilepath = "botdata.txt";
 $delim = "|#|";
 
+error_log("test log\r\n", 3, "bot.log", "");
+
 // Open a botdata.txt file
 $myfile = fopen($botfilepath, "r") or die("Unable to open file!");
 
