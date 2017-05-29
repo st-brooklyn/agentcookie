@@ -71,7 +71,8 @@ if (!is_null($events['events'])) {
 				//'text' => $text
 				'text' => getReply($text)."\n\r".$content_raw
 			];
-
+			
+			/*
 			// Make a POST Request to Messaging API to reply to sender
 			$url = 'https://api.line.me/v2/bot/message/reply';
 			$data = [
@@ -92,8 +93,8 @@ if (!is_null($events['events'])) {
 			curl_close($ch);
 
 			echo $result . "\r\n";
-			
-			//echo sendMessage(global $replyToken, global $messages, global $access_token);
+			*/
+			echo sendMessage($replyToken, $messages, $access_token);
 		}
 	}
 }
