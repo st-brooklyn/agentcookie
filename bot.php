@@ -69,7 +69,7 @@ if (!is_null($events['events'])) {
 			$messages = [
 				'type' => 'text',
 				//'text' => $text
-				'text' => getReply($text)."\n\r".$content_raw
+				'text' => getReply($text)//."\n\r".$content_raw
 			];
 			
 			/*
