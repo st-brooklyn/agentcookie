@@ -2,7 +2,7 @@
 require "botengine.php";
 $logFileName = "bot.log";
 
-file_put_contents("bot.log", "test\r\n");
+// file_put_contents("bot.log", "test\r\n");
 
 function logvar($object){
 	global $logFileName;
@@ -10,7 +10,9 @@ function logvar($object){
 	var_dump($object);
 	$logmsg = ob_get_contents();
 	ob_end_clean();
-	logToFile($logmsg, $logFileName);
+	//logToFile($logmsg, $logFileName);
+	
+	return $logmsg;
 }
 
 function sendMessage($replyToken,  $messages, $accessToken) {
@@ -45,6 +47,8 @@ $content = file_get_contents('php://input');
 
 //logToFile(gettype($content), $logFileName);
 
+$content_raw = logvar($content);
+
 //error_log(gettype($content), 3, "bot.log", "");
 //logvar($content);
 
@@ -65,7 +69,7 @@ if (!is_null($events['events'])) {
 			$messages = [
 				'type' => 'text',
 				//'text' => $text
-				'text' => getReply($text)
+				'text' => getReply($text)."\n\r".$content_raw
 			];
 
 			// Make a POST Request to Messaging API to reply to sender
