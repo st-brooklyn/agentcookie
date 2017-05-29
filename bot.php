@@ -6,7 +6,7 @@ function logvar($object){
 	var_dump($object);
 	$logmsg = ob_get_contents();
 	ob_end_clean();
-	error_log($content, 3, "bot.log");
+	error_log($content, 3, "bot.log", "");
 }
 
 function sendMessage($replyToken,  $messages, $accessToken) {
@@ -37,7 +37,7 @@ $access_token = 'dIZf/b/ZabUO0IafFmPxBvcG9xPKQXtGZ6wClV70CCqTwV1TJDT1m58rdm3pko0
 
 // Get POST body content
 $content = file_get_contents('php://input');
-error_log(gettype($content), 3, "bot.log");
+error_log(gettype($content), 3, "bot.log", "");
 logvar($content);
 
 // Parse JSON
