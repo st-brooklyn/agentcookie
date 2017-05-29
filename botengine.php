@@ -2,7 +2,11 @@
 $botfilepath = "botdata.txt";
 $delim = "|#|";
 
-error_log("test log\r\n", 3, "bot.log", "");
+function logToFile($message = "Log: ", $logFileName) {
+  file_put_contents($logFileName, $message."\r\n");
+}
+
+logToFile("test log", "bot.log");
 
 // Open a botdata.txt file
 $myfile = fopen($botfilepath, "r") or die("Unable to open file!");
