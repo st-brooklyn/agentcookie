@@ -94,6 +94,8 @@ if (!is_null($events['events'])) {
 
 			echo $result . "\r\n";
 			*/
+			sleep(5);
+			
 			echo sendMessage($replyToken, $messages, $access_token);
 		}
 	}
