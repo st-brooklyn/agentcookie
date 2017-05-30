@@ -97,6 +97,7 @@ if (!is_null($events['events'])) {
 			sleep(5);
 			
 			echo sendMessage($replyToken, $messages, $access_token);
+			echo sendMessage($replyToken, $messages, $access_token);
 		}
 	}
 }
