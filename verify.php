@@ -6,7 +6,7 @@ use Monolog\Handler\StreamHandler;
 
 // Create a log channel
 $log = new Logger('Verify');
-$log->pushHandler(new StreamHandler('php://stderr', Logger::WARNING));
+$log->pushHandler(new StreamHandler('php://stdout', Logger::WARNING));
 
 // $log->error('Bar');
 
