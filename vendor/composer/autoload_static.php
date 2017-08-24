@@ -40,6 +40,10 @@ class ComposerStaticInit8deb1962c144c6f6ab3f8727a306a1a4
         array (
             'Overtrue\\PHPLint\\' => 17,
         ),
+        'M' => 
+        array (
+            'Monolog\\' => 8,
+        ),
         'G' => 
         array (
             'GuzzleHttp\\Psr7\\' => 16,
@@ -92,6 +96,10 @@ class ComposerStaticInit8deb1962c144c6f6ab3f8727a306a1a4
         'Overtrue\\PHPLint\\' => 
         array (
             0 => __DIR__ . '/..' . '/overtrue/phplint/src',
+        ),
+        'Monolog\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/monolog/monolog/src/Monolog',
         ),
         'GuzzleHttp\\Psr7\\' => 
         array (

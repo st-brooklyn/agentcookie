@@ -1,8 +1,16 @@
 <?php
+require_once __DIR__ . '/vendor/autoload.php';
 require "botengine.php";
-$logFileName = "bot.log";
+require "aimanager.php";
 
-// file_put_contents("bot.log", "test\r\n");
+use Monolog\Logger;
+use Monolog\Handler\StreamHandler;
+
+// Create a log channel
+$log = new Logger('Main Bot');
+$log->pushHandler(new StreamHandler('php://stderr', Logger::WARNING));
+
+// $log->error('Bar');
 
 function logvar($object){
 	global $logFileName;
@@ -15,8 +23,11 @@ function logvar($object){
 	return $logmsg;
 }
 
-function sendMessage($replyToken,  $messages, $accessToken) {
-	
+function sendMessage2($userId, $message, $accessToken) {
+
+}
+
+function sendMessage($replyToken, $messages, $accessToken) {	
 	// Make a POST Request to Messaging API to reply to sender
 	$url = 'https://api.line.me/v2/bot/message/reply';
 	$data = [
@@ -50,7 +61,7 @@ $content = file_get_contents('php://input');
 $content_raw = logvar($content);
 
 //error_log(gettype($content), 3, "bot.log", "");
-//logvar($content);
+//logvar($content);	
 
 // Parse JSON
 $events = json_decode($content, true);
@@ -64,6 +75,11 @@ if (!is_null($events['events'])) {
 			$text = $event['message']['text'];
 			// Get replyToken
 			$replyToken = $event['replyToken'];
+			$userId = $event["source"]["userId"];
+
+			// Make a request to recast.ai
+			$response = ask_ai($text);
+			
 
 			// Build message to reply back
 			$messages = [
