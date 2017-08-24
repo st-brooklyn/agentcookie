@@ -8,7 +8,7 @@ use Monolog\Handler\StreamHandler;
 
 // Create a log channel
 $log = new Logger('Main Bot');
-$log->pushHandler(new StreamHandler('php://stderr', Logger::WARNING));
+$log->pushHandler(new StreamHandler('php://stdout', Logger::WARNING));
 
 // $log->error('Bar');
 

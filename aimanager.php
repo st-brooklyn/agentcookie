@@ -1,11 +1,13 @@
 <?php
+require_once __DIR__ . '/vendor/autoload.php';
+
 use RecastAI\CLient;
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
 
 // Create a log channel
 $log = new Logger('AI Manager');
-$log->pushHandler(new StreamHandler('php://stderr', Logger::WARNING));
+$log->pushHandler(new StreamHandler('php://stdout', Logger::WARNING));
 
 $request_token = "ab4f0c7d1fabde3fe483e243167171bc";
 $language_code = "th";
