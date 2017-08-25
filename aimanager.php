@@ -19,9 +19,11 @@ $language_code = "th";
 function ask_ai($text) {
     global $request_token;
     global $language_code;
+    global $log;
 
     $client = new Client($request_token, $language_code);
-
+    $log->warning('Text to be sent: ' . $text);
+    
     $res = $client->request->converseText($text);
     $reply = $res->reply();  // Conversation object
 
