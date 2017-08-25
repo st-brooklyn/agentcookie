@@ -111,13 +111,16 @@ if (!is_null($events['events'])) {
 
 			//$log->warning("Raw: " . $co[0]);
 
-			if($co->action()->done){
+			if($co->action->done){
 				// Perform custom action
 				// Can be checked from slug and done
 				$log->warning("Perform the action from conversation response after the intent is done");
+			}else
+			{
+				$log->warning("Unfinished conversation.");
 			}
 
-			$reply_text = $co->reply() . "\n Intent: " . $co->intents[0]->slug . "\n Completed: " . $co->action()->done . "\n Token: " . $co->conversation_token . "\n Timestamp: " . $co->timestamp;
+			$reply_text = $co->reply() . "\n Intent: " . $co->intents[0]->slug . "\n Completed: " . $co->action->done . "\n Token: " . $co->conversation_token . "\n Timestamp: " . $co->timestamp;
 			//$reply_text = ask_ai($text);
 			$log->warning("Reply text: " . $reply_text);
 
