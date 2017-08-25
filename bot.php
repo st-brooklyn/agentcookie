@@ -105,9 +105,15 @@ if (!is_null($events['events'])) {
 			$log->warning("User ID: " . $userId);
 
 			// Make a request to recast.ai
-			$reply_text = "Your user ID: " . $userId;
+			//$reply_text = "Your user ID: " . $userId;
+			//conversation_object
+			$co = ask_ai($text);
+
+			$log->warning("Raw: " . $co->raw);
+
+			$reply_text = $co->reply() . "\n Intent: " . $co->intents["slug"] . "\n Completed: " . $co->action["done"] . "\n Token: " . $co->conversation_token . "\n Timestamp: " . $co->timestamp;
 			//$reply_text = ask_ai($text);
-			
+			$log->warning("Reply text: " . $reply_text);
 
 			// Build message to reply back
 			$messages = create_text_message($reply_text);

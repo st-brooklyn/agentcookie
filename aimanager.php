@@ -23,10 +23,10 @@ function ask_ai($text) {
     $client = new Client($request_token, $language_code);
 
     $res = $client->request->converseText($text);
-    $reply = $res->reply();
+    $reply = $res->reply();  // Conversation object
 
-    $conver_token = $res->conversation_token;
-    $action = $res->action();
+    // $conver_token = $res->conversation_token;
+    // $action = $res->action();
 
     return $reply;
     //var_dump($reply);
