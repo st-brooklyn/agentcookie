@@ -109,7 +109,7 @@ if (!is_null($events['events'])) {
 			//conversation_object
 			$co = ask_ai($text);
 
-			//$log->warning("Raw: " . $co[0]);
+			$log->warning("Raw: " . $co->raw);
 
 			if($co->action->done){
 				// Perform custom action
