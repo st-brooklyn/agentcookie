@@ -28,7 +28,7 @@ function ask_ai($text) {
     // $conver_token = $res->conversation_token;
     // $action = $res->action();
 
-    return $reply;
+    return $res;
     //var_dump($reply);
 }
 ?>
