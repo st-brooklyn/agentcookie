@@ -102,14 +102,14 @@ if (!is_null($events['events'])) {
 			$log->warning("User ID: " . $userId);
 
 			// Make a request to recast.ai
-			$reply_text = "test";
+			$reply_text = "Your user ID: " . $userId;
 			//$reply_text = ask_ai($text);
 			
 
 			// Build message to reply back
 			$messages = create_text_message($reply_text);
 
-			$push_result = $this.pushMessage($userId, $messages, $access_token);
+			$push_result = pushMessage($userId, $messages, $access_token);
 
 			$log->warning("Push result: " . $push_result);
 			/*
@@ -117,7 +117,7 @@ if (!is_null($events['events'])) {
 			$url = 'https://api.line.me/v2/bot/message/reply';
 			$data = [
 				'replyToken' => $replyToken,
-				'messages' => [$messages],				
+				'messages' => [$messages],
 			];			
 			
 			$post = json_encode($data);
