@@ -12,19 +12,30 @@ $log->pushHandler(new StreamHandler('php://stdout', Logger::WARNING));
 
 // $log->error('Bar');
 
-function logvar($object){
-	global $logFileName;
-	ob_start();
-	var_dump($object);
-	$logmsg = ob_get_contents();
-	ob_end_clean();
-	//logToFile($logmsg, $logFileName);
-	
-	return $logmsg;
-}
+function pushMessage($userId, $message, $accessToken) {
+	global $log;
 
-function sendMessage2($userId, $message, $accessToken) {
+	$url = "https://api.line.me/v2/bot/message/push";
+	$data = [
+		'to' => $userId,
+		'messages' => [$messages],				
+	];
 
+	$post = json_encode($data);
+	$headers = array('Content-Type: application/json', 'Authorization: Bearer ' . $accessToken);
+
+	$ch = curl_init($url);
+	curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+	curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
+	curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+	curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+	$result = curl_exec($ch);
+	curl_close($ch);
+
+	$log->warning($result . "\r\n");
+
+	return $result . "\r\n";
 }
 
 function sendMessage($replyToken, $messages, $accessToken) {	
@@ -50,6 +61,16 @@ function sendMessage($replyToken, $messages, $accessToken) {
 	return $result . "\r\n";
 }
 
+function create_text_message($text)
+{
+	$messages = [
+				'type' => 'text',
+				//'text' => $text
+				'text' => getReply($text)//."\n\r".$content_raw
+	];
+
+	return $messages;
+}
 
 $access_token = 'dIZf/b/ZabUO0IafFmPxBvcG9xPKQXtGZ6wClV70CCqTwV1TJDT1m58rdm3pko08nIimFRk5wmcElbc7mF9ZXkntG7goq5NDifdSJBkGLyReznHswZuhR77uOYc9ryJIVAfhouccWFwtKMIMucBXpQdB04t89/1O/w1cDnyilFU=';
 
@@ -57,8 +78,9 @@ $access_token = 'dIZf/b/ZabUO0IafFmPxBvcG9xPKQXtGZ6wClV70CCqTwV1TJDT1m58rdm3pko0
 $content = file_get_contents('php://input');
 
 //logToFile(gettype($content), $logFileName);
+$log->warning("Original message: " . $content);
 
-$content_raw = logvar($content);
+//$content_raw = logvar($content);
 
 //error_log(gettype($content), 3, "bot.log", "");
 //logvar($content);	
@@ -77,17 +99,19 @@ if (!is_null($events['events'])) {
 			$replyToken = $event['replyToken'];
 			$userId = $event["source"]["userId"];
 
+			$log->warning("User ID: " . $userId);
+
 			// Make a request to recast.ai
-			$response = ask_ai($text);
+			$reply_text = "test";
+			//$reply_text = ask_ai($text);
 			
 
 			// Build message to reply back
-			$messages = [
-				'type' => 'text',
-				//'text' => $text
-				'text' => getReply($text)//."\n\r".$content_raw
-			];
-			
+			$messages = create_text_message($reply_text);
+
+			$push_result = $this.pushMessage($userId, $messages, $access_token);
+
+			$log->warning("Push result: " . $push_result);
 			/*
 			// Make a POST Request to Messaging API to reply to sender
 			$url = 'https://api.line.me/v2/bot/message/reply';
@@ -110,10 +134,10 @@ if (!is_null($events['events'])) {
 
 			echo $result . "\r\n";
 			*/
-			sleep(5);
+			//sleep(5);
 			
-			echo sendMessage($replyToken, $messages, $access_token);
-			echo sendMessage($replyToken, $messages, $access_token);
+			//echo sendMessage($replyToken, $messages, $access_token);
+			//echo sendMessage($replyToken, $messages, $access_token);
 		}
 	}
 }
