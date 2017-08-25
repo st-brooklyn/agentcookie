@@ -9,16 +9,17 @@ use Monolog\Handler\StreamHandler;
 // Create a log channel
 $log = new Logger('Main Bot');
 $log->pushHandler(new StreamHandler('php://stdout', Logger::WARNING));
+$bot_version = '001';
 
 // $log->error('Bar');
 
-function pushMessage($userId, $message, $accessToken) {
+function pushMessage($userId, $messages, $accessToken) {
 	global $log;
 
 	$url = "https://api.line.me/v2/bot/message/push";
 	$data = [
 		'to' => $userId,
-		'messages' => [$messages],				
+		'messages' => [$messages]
 	];
 
 	$post = json_encode($data);
@@ -43,7 +44,7 @@ function sendMessage($replyToken, $messages, $accessToken) {
 	$url = 'https://api.line.me/v2/bot/message/reply';
 	$data = [
 		'replyToken' => $replyToken,
-		'messages' => [$messages],				
+		'messages' => [$messages],
 	];
 				
 	$post = json_encode($data);
@@ -71,6 +72,8 @@ function create_text_message($text)
 
 	return $messages;
 }
+
+$log->warning('Version: ' . $bot_version);
 
 $access_token = 'dIZf/b/ZabUO0IafFmPxBvcG9xPKQXtGZ6wClV70CCqTwV1TJDT1m58rdm3pko08nIimFRk5wmcElbc7mF9ZXkntG7goq5NDifdSJBkGLyReznHswZuhR77uOYc9ryJIVAfhouccWFwtKMIMucBXpQdB04t89/1O/w1cDnyilFU=';
 
