@@ -109,7 +109,7 @@ if (!is_null($events['events'])) {
 			//conversation_object
 			$co = ask_ai($text);
 
-			$log->warning("Raw: " . $co->raw);
+			$log->warning("Raw: " . json_encode($co->raw));
 
 			$reply_text = $co->reply() . "\n Intent: " . $co->intents["slug"] . "\n Completed: " . $co->action["done"] . "\n Token: " . $co->conversation_token . "\n Timestamp: " . $co->timestamp;
 			//$reply_text = ask_ai($text);
