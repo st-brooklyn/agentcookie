@@ -66,7 +66,7 @@ function create_text_message($text)
 	$messages = [
 				'type' => 'text',
 				//'text' => $text
-				'text' => getReply($text)//."\n\r".$content_raw
+				'text' => $text//."\n\r".$content_raw
 	];
 
 	return $messages;
