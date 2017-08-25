@@ -111,7 +111,7 @@ if (!is_null($events['events'])) {
 
 			$log->warning("Raw: " . json_encode($co->raw));
 
-			$reply_text = json_encode($co->replies[0]) . "\n Intent: " . json_encode($co->intents["slug"]) . "\n Completed: " . json_encode($co->action["done"]) . "\n Token: " . json_encode($co->conversation_token) . "\n Timestamp: " . json_encode($co->timestamp);
+			$reply_text = json_encode($co->replies[0]); //. "\n Intent: " . json_encode($co->intents["slug"]) . "\n Completed: " . json_encode($co->action["done"]) . "\n Token: " . json_encode($co->conversation_token) . "\n Timestamp: " . json_encode($co->timestamp);
 			//$reply_text = ask_ai($text);
 			$log->warning("Reply text: " . $reply_text);
 
