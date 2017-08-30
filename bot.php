@@ -80,6 +80,24 @@ $access_token = 'dIZf/b/ZabUO0IafFmPxBvcG9xPKQXtGZ6wClV70CCqTwV1TJDT1m58rdm3pko0
 // Get POST body content
 $content = file_get_contents('php://input');
 
+$url = 'https://agentanderson.herokuapp.com/line/webhook';
+// $data = [
+// 	'replyToken' => $replyToken,
+// 	'messages' => [$messages],
+// ];			
+
+//$post = json_encode($data);
+$headers = array('Content-Type: application/json');
+
+$ch = curl_init($url);
+curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
+curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+$result = curl_exec($ch);
+curl_close($ch);
+
 //logToFile(gettype($content), $logFileName);
 $log->warning("Original message: " . $content);
 
@@ -88,87 +106,90 @@ $log->warning("Original message: " . $content);
 //error_log(gettype($content), 3, "bot.log", "");
 //logvar($content);	
 
-// Parse JSON
-$events = json_decode($content, true);
-// Validate parsed JSON data
-if (!is_null($events['events'])) {
-	// Loop through each event
-	foreach ($events['events'] as $event) {
-		// Reply only when message sent is in 'text' format
-		if ($event['type'] == 'message' && $event['message']['type'] == 'text') {
-			// Get text sent
-			$text = $event['message']['text'];
-			// Get replyToken
-			$replyToken = $event['replyToken'];
-			$userId = $event["source"]["userId"];
+if(false){
+	// Parse JSON
+	$events = json_decode($content, true);
+	// Validate parsed JSON data
+	if (!is_null($events['events'])) {
+		// Loop through each event
+		foreach ($events['events'] as $event) {
+			// Reply only when message sent is in 'text' format
+			if ($event['type'] == 'message' && $event['message']['type'] == 'text') {
+				// Get text sent
+				$text = $event['message']['text'];
+				// Get replyToken
+				$replyToken = $event['replyToken'];
+				$userId = $event["source"]["userId"];
 
-			$log->warning("User ID: " . $userId);
+				$log->warning("User ID: " . $userId);
 
-			// Make a request to recast.ai
-			//$reply_text = "Your user ID: " . $userId;
-			//conversation_object
-			$co = ask_ai($text);
+				// Make a request to recast.ai
+				//$reply_text = "Your user ID: " . $userId;
+				//conversation_object
+				$co = ask_ai($text);
 
-			$log->warning("Raw: " . json_encode($co->raw));
+				$log->warning("Raw: " . json_encode($co->raw));
 
-			if($co->action->done){
-				// Perform custom action
-				// Can be checked from slug and done
-				$log->warning("Perform the action from conversation response after the intent is done");
+				if($co->action->done){
+					// Perform custom action
+					// Can be checked from slug and done
+					$log->warning("Perform the action from conversation response after the intent is done");
 
-				// implement json response from api
+					// implement json response from api
 
-			}else
-			{
-				$log->warning("Unfinished conversation.");
+				}else
+				{
+					$log->warning("Unfinished conversation.");
+				}
+
+				// TODO: session handling
+				// 
+
+				if($co->intents[0]->slug == "greetings")
+				{
+
+				}
+
+				$reply_text = $co->reply() . "\n Intent: " . $co->intents[0]->slug . "\n Completed: " . $co->action->done . "\n Token: " . $co->conversation_token . "\n Timestamp: " . $co->timestamp;
+				//$reply_text = ask_ai($text);
+				$log->warning("Reply text: " . $reply_text);
+
+				// Build message to reply back
+				$messages = create_text_message($reply_text);
+
+				$push_result = pushMessage($userId, $messages, $access_token);
+
+				$log->warning("Push result: " . $push_result);
+				/*
+				// Make a POST Request to Messaging API to reply to sender
+				$url = 'https://api.line.me/v2/bot/message/reply';
+				$data = [
+					'replyToken' => $replyToken,
+					'messages' => [$messages],
+				];			
+				
+				$post = json_encode($data);
+				$headers = array('Content-Type: application/json', 'Authorization: Bearer ' . $access_token);
+
+				$ch = curl_init($url);
+				curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+				curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+				curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
+				curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+				curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+				$result = curl_exec($ch);
+				curl_close($ch);
+
+				echo $result . "\r\n";
+				*/
+				//sleep(5);
+				
+				//echo sendMessage($replyToken, $messages, $access_token);
+				//echo sendMessage($replyToken, $messages, $access_token);
 			}
-
-			// TODO: session handling
-			// 
-
-			if($co->intents[0]->slug == "greetings")
-			{
-
-			}
-
-			$reply_text = $co->reply() . "\n Intent: " . $co->intents[0]->slug . "\n Completed: " . $co->action->done . "\n Token: " . $co->conversation_token . "\n Timestamp: " . $co->timestamp;
-			//$reply_text = ask_ai($text);
-			$log->warning("Reply text: " . $reply_text);
-
-			// Build message to reply back
-			$messages = create_text_message($reply_text);
-
-			$push_result = pushMessage($userId, $messages, $access_token);
-
-			$log->warning("Push result: " . $push_result);
-			/*
-			// Make a POST Request to Messaging API to reply to sender
-			$url = 'https://api.line.me/v2/bot/message/reply';
-			$data = [
-				'replyToken' => $replyToken,
-				'messages' => [$messages],
-			];			
-			
-			$post = json_encode($data);
-			$headers = array('Content-Type: application/json', 'Authorization: Bearer ' . $access_token);
-
-			$ch = curl_init($url);
-			curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
-			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-			curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
-			curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-			curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
-			$result = curl_exec($ch);
-			curl_close($ch);
-
-			echo $result . "\r\n";
-			*/
-			//sleep(5);
-			
-			//echo sendMessage($replyToken, $messages, $access_token);
-			//echo sendMessage($replyToken, $messages, $access_token);
 		}
 	}
 }
+
 echo "OK";
 ?>
