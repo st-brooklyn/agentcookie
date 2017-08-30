@@ -115,9 +115,20 @@ if (!is_null($events['events'])) {
 				// Perform custom action
 				// Can be checked from slug and done
 				$log->warning("Perform the action from conversation response after the intent is done");
+
+				// implement json response from api
+
 			}else
 			{
 				$log->warning("Unfinished conversation.");
+			}
+
+			// TODO: session handling
+			// 
+
+			if($co->intents[0]->slug == "greetings")
+			{
+
 			}
 
 			$reply_text = $co->reply() . "\n Intent: " . $co->intents[0]->slug . "\n Completed: " . $co->action->done . "\n Token: " . $co->conversation_token . "\n Timestamp: " . $co->timestamp;

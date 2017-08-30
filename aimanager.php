@@ -10,7 +10,7 @@ $log = new Logger('AI Manager');
 $log->pushHandler(new StreamHandler('php://stdout', Logger::WARNING));
 
 //f00c9114c22cebbecc7376e7f6f9b993
-$request_token = "f00c9114c22cebbecc7376e7f6f9b993";
+$request_token = "14dbc382a7fcd17d4df5e3a8a73a0176";
 //$request_token = "ab4f0c7d1fabde3fe483e243167171bc";
 $language_code = "th";
 
