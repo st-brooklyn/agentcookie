@@ -94,8 +94,9 @@ if (!is_null($events['events'])) {
 		if ($event['type'] == 'postback') {
 			// Extract data data and make request call to the endpoint
 			$postback_data = $event['postback']['data'];
+			$postback_url = $qualifier_url . $postback_data;
 			
-			$postback_url = $qualifier_url + $postback_data;
+			$log->warning("Postback URL: " . $postback_url);
 
 			// Get cURL resource
 			$curl = curl_init();
