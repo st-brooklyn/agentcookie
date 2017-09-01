@@ -80,23 +80,66 @@ $access_token = 'dIZf/b/ZabUO0IafFmPxBvcG9xPKQXtGZ6wClV70CCqTwV1TJDT1m58rdm3pko0
 // Get POST body content
 $content = file_get_contents('php://input');
 
-$url = 'https://agentanderson.herokuapp.com/line/webhook';
+$boturl = 'https://agentanderson.herokuapp.com/line/webhook';
+$qualifier_url = "https://agentanderson.herokuapp.com/qualifier/";
 // $data = [
 // 	'replyToken' => $replyToken,
 // 	'messages' => [$messages],
-// ];			
+// ];
 
-//$post = json_encode($data);
-$headers = array('Content-Type: application/json');
+$events = json_decode($content, true);
 
-$ch = curl_init($url);
-curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-curl_setopt($ch, CURLOPT_POSTFIELDS, $content);
-curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
-$result = curl_exec($ch);
-curl_close($ch);
+if (!is_null($events['events'])) {
+	foreach ($events['events'] as $event) {
+		if ($event['type'] == 'postback') {
+			// Extract data data and make request call to the endpoint
+			$postback_data = $event['postback']['data'];
+			
+			$postback_url = $qualifier_url + $postback_data;
+
+			// Get cURL resource
+			$curl = curl_init();
+			// Set some options - we are passing in a useragent too here
+			curl_setopt_array($curl, array(
+				CURLOPT_RETURNTRANSFER => 1,
+				CURLOPT_URL => $postback_url,
+				CURLOPT_USERAGENT => 'Chatbot line webhook'
+			));
+			// Send the request & save response to $resp
+			$resp = curl_exec($curl);
+			// Close request to clear up some resources
+			curl_close($curl);
+		}
+		elseif ($event['type'] == 'message' && $event['message']['type'] == 'text') {
+			//$post = json_encode($data);
+			$headers = array('Content-Type: application/json');
+
+			$ch = curl_init($boturl);
+			curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+			curl_setopt($ch, CURLOPT_POSTFIELDS, $content);
+			curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+			curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+			$result = curl_exec($ch);
+			curl_close($ch);
+		}
+		else{
+			//$post = json_encode($data);
+			$headers = array('Content-Type: application/json');
+
+			$ch = curl_init($boturl);
+			curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+			curl_setopt($ch, CURLOPT_POSTFIELDS, $content);
+			curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+			curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+			$result = curl_exec($ch);
+			curl_close($ch);
+		}
+	}
+}
+
+
 
 //logToFile(gettype($content), $logFileName);
 $log->warning("Original message: " . $content);
