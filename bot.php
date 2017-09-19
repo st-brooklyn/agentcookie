@@ -79,6 +79,7 @@ $access_token = 'dIZf/b/ZabUO0IafFmPxBvcG9xPKQXtGZ6wClV70CCqTwV1TJDT1m58rdm3pko0
 
 // Get POST body content
 $content = file_get_contents('php://input');
+$log->warning("Original content: " . $content);
 
 $boturl = 'https://agentanderson.herokuapp.com/line/webhook';
 $qualifier_url = "https://agentanderson.herokuapp.com/qualifier/";
@@ -89,7 +90,7 @@ $qualifier_url = "https://agentanderson.herokuapp.com/qualifier/";
 
 $events = json_decode($content, true);
 
-if (!is_null($events['events'])) {
+if (!is_null($events['events'])) {	
 	foreach ($events['events'] as $event) {
 		$headers = array('Content-Type: application/json');
 		
@@ -155,7 +156,7 @@ if (!is_null($events['events'])) {
 
 
 //logToFile(gettype($content), $logFileName);
-$log->warning("Original message: " . $content);
+//$log->warning("Original message: " . $content);
 
 //$content_raw = logvar($content);
 
