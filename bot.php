@@ -91,52 +91,64 @@ $events = json_decode($content, true);
 
 if (!is_null($events['events'])) {
 	foreach ($events['events'] as $event) {
-		if ($event['type'] == 'postback') {
-			// Extract data data and make request call to the endpoint
-			$postback_data = $event['postback']['data'];
-			$postback_url = $qualifier_url . $postback_data;
+		$headers = array('Content-Type: application/json');
+		
+		$ch = curl_init($boturl);
+		curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($ch, CURLOPT_POSTFIELDS, $content);
+		curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+		curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+		$result = curl_exec($ch);
+		curl_close($ch);
+
+
+		// if ($event['type'] == 'postback') {
+		// 	// Extract data data and make request call to the endpoint
+		// 	$postback_data = $event['postback']['data'];
+		// 	$postback_url = $qualifier_url . $postback_data;
 			
-			$log->warning("Postback URL: " . $postback_url);
+		// 	$log->warning("Postback URL: " . $postback_url);
 
-			// Get cURL resource
-			$curl = curl_init();
-			// Set some options - we are passing in a useragent too here
-			curl_setopt_array($curl, array(
-				CURLOPT_RETURNTRANSFER => 1,
-				CURLOPT_URL => $postback_url,
-				CURLOPT_USERAGENT => 'Chatbot line webhook'
-			));
-			// Send the request & save response to $resp
-			$resp = curl_exec($curl);
-			// Close request to clear up some resources
-			curl_close($curl);
-		}
-		elseif ($event['type'] == 'message' && $event['message']['type'] == 'text') {
-			//$post = json_encode($data);
-			$headers = array('Content-Type: application/json');
+		// 	// Get cURL resource
+		// 	$curl = curl_init();
+		// 	// Set some options - we are passing in a useragent too here
+		// 	curl_setopt_array($curl, array(
+		// 		CURLOPT_RETURNTRANSFER => 1,
+		// 		CURLOPT_URL => $postback_url,
+		// 		CURLOPT_USERAGENT => 'Chatbot line webhook'
+		// 	));
+		// 	// Send the request & save response to $resp
+		// 	$resp = curl_exec($curl);
+		// 	// Close request to clear up some resources
+		// 	curl_close($curl);
+		// }
+		// elseif ($event['type'] == 'message' && $event['message']['type'] == 'text') {
+		// 	//$post = json_encode($data);
+		// 	$headers = array('Content-Type: application/json');
 
-			$ch = curl_init($boturl);
-			curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
-			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-			curl_setopt($ch, CURLOPT_POSTFIELDS, $content);
-			curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-			curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
-			$result = curl_exec($ch);
-			curl_close($ch);
-		}
-		else{
-			//$post = json_encode($data);
-			$headers = array('Content-Type: application/json');
+		// 	$ch = curl_init($boturl);
+		// 	curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+		// 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		// 	curl_setopt($ch, CURLOPT_POSTFIELDS, $content);
+		// 	curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+		// 	curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+		// 	$result = curl_exec($ch);
+		// 	curl_close($ch);
+		// }
+		// else{
+		// 	//$post = json_encode($data);
+		// 	$headers = array('Content-Type: application/json');
 
-			$ch = curl_init($boturl);
-			curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
-			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-			curl_setopt($ch, CURLOPT_POSTFIELDS, $content);
-			curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-			curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
-			$result = curl_exec($ch);
-			curl_close($ch);
-		}
+		// 	$ch = curl_init($boturl);
+		// 	curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+		// 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		// 	curl_setopt($ch, CURLOPT_POSTFIELDS, $content);
+		// 	curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+		// 	curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+		// 	$result = curl_exec($ch);
+		// 	curl_close($ch);
+		// }
 	}
 }
 
