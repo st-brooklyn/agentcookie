@@ -81,8 +81,8 @@ $access_token = 'dIZf/b/ZabUO0IafFmPxBvcG9xPKQXtGZ6wClV70CCqTwV1TJDT1m58rdm3pko0
 $content = file_get_contents('php://input');
 $log->warning("Original content: " . $content);
 
-$boturl = 'https://agentanderson.herokuapp.com/line/webhook';
-$qualifier_url = "https://agentanderson.herokuapp.com/qualifier/";
+$boturl = 'https://agentfortune.herokuapp.com/line/webhook';
+$qualifier_url = "https://agentfortune.herokuapp.com/qualifier/";
 // $data = [
 // 	'replyToken' => $replyToken,
 // 	'messages' => [$messages],
